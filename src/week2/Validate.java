@@ -63,19 +63,31 @@ public class Validate {
     public static String checkOperator(String ms) {
 
         String allowed = "+-*/^=";
-        while(true){
-        try {
-            System.out.println(ms);
-            String op = sc.nextLine().trim();
-            if (op == null || op.length() != 1 || allowed.indexOf(op.charAt(0)) == -1) {
-                throw new Exception();
+        while (true) {
+            try {
+                System.out.println(ms);
+                String op = sc.nextLine().trim();
+                if (op == null || op.length() != 1 || allowed.indexOf(op.charAt(0)) == -1) {
+                    throw new Exception();
+                }
+                return op;
+            } catch (Exception e) {
+                System.out.println("Please input (+, -, *, /, ^)");
             }
-            return op;
-        } catch (Exception e) {
-            System.out.println("Please input (+, -, *, /, ^)");
-        }
         }
 
+    }
+
+    public static Matrix inputMatrix(int rows, int cols) {
+        Matrix m = new Matrix(rows, cols);
+        int[][] data = m.getMatrix();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                data[i][j] = checkNum("Enter Matrix[" + i + "][" + j + "] = ");
+            }
+        }
+        m.setMatrix(data);
+        return m;
     }
 
     public static int menu(String title, String[] options) {
