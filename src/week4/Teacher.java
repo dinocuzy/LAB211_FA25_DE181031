@@ -53,7 +53,7 @@ public class Teacher extends Person {
     @Override
     public String toString() {
         return String.format("%s - %s - %s - %d - %s - %d - %s - %.2f",
-                getId(), getName(), getPhone(), getYob(), getMajor(),
+                super.getId(), super.getName(), super.getPhone(), super.getYob(), super.getMajor(),
                 yearsInProfession, contractType, salaryCoefficient);
     }
 

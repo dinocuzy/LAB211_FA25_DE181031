@@ -41,7 +41,7 @@ public class Student extends Person {
     @Override
     public String toString() {
         return String.format("%s - %s - %s - %d - %s - %d - %.1f",
-                getId(), getName(), getPhone(), getYob(), getMajor(),
+                super.getId(), super.getName(), super.getPhone(), super.getYob(), super.getMajor(),
                 yearOfAdmission, entranceEnglishScore);
     }
 
