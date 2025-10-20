@@ -1,4 +1,4 @@
-package week5;
+package week6;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +14,6 @@ public class Validate {
     public static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mma");
     public static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    // ===== Common Input Validators =====
     public static String inputNonEmpty(String msg) {
         while (true) {
             System.out.print(msg);
