@@ -14,7 +14,6 @@ public class Validate {
     public static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mma");
     public static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-    // ===== Common Input Validators =====
     public static String inputNonEmpty(String msg) {
         while (true) {
             System.out.print(msg);
@@ -54,7 +53,6 @@ public class Validate {
         }
     }
 
-    // ===== Reservation / Common Utility Validators =====
     public static int checkNum(String ms) {
         while (true) {
             System.out.print(ms);

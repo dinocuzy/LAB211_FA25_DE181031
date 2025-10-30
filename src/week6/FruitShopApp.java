@@ -48,40 +48,55 @@ public class FruitShopApp {
 
                     List<OrderDetail> cart = new ArrayList<>();
                     while (true) {
-                        System.out.printf("\n|%-5s|%-10s|%-10s|%-10s|%-10s|\n", "Item", "Name", "Origin", " Price", " Qty");
-                        int index = 1;
+                        System.out.printf("\n|%-5s|%-10s|%-10s|%-10s|%-10s|\n", "ID", "Name", "Price", "Quantity", " Origin");
                         for (Fruit f : fruits) {
                             System.out.println(f.toString());
                         }
-                        System.out.print("Select item number: ");
-                        int sel = sc.nextInt();
+                        System.out.print("Select fruit id: ");
+                        int sel = sc.nextInt(); 
                         sc.nextLine();
 
-                        Fruit chosen = fruits.get(sel - 1);
+                        Fruit chosen = fruitDAO.getById(sel);
+                        if (chosen == null) {
+                            System.out.println("Invalid fruit id!");
+                            continue;
+                        }
                         System.out.print("Quantity: ");
                         int q = sc.nextInt();
                         sc.nextLine();
 
-                        if (q > chosen.getQuantity()) {
+                        int inCart = cart.stream()
+                                .filter(d -> d.getFruitId() == chosen.getId())
+                                .mapToInt(OrderDetail::getQuantity)
+                                .sum();
+                        if (q > (chosen.getQuantity() - inCart)) {
                             System.out.println("Not enough stock!");
                             continue;
                         }
 
-                        cart.add(new OrderDetail(0, chosen.getId(), q, chosen.getPrice()));
-                        fruitDAO.updateQuantity(chosen.getId(), chosen.getQuantity() - q);
-
-                        System.out.print("Continue shopping (Y/N)? ");
-                        if (sc.nextLine().equalsIgnoreCase("N")) {
+                        Optional<OrderDetail> existing = cart.stream()
+                                .filter(d -> d.getFruitId() == chosen.getId())
+                                .findFirst();
+                        if (existing.isPresent()) {
+                            OrderDetail d = existing.get();
+                            d.setQuantity(d.getQuantity() + q);
+                        } else {
+                            cart.add(new OrderDetail(0, chosen.getId(), q, chosen.getPrice()));
+                        }
+                        
+                        System.out.print("Do you want to order now (Y/N)");
+                        if (sc.nextLine().equalsIgnoreCase("Y")) {
                             break;
                         }
                     }
 
-                    double total = cart.stream().mapToDouble(d -> d.getPrice() * d.getQuantity()).sum();
-                    System.out.printf("Total: %.2f%n", total);
+                    int total = cart.stream().mapToInt(d -> d.getPrice() * d.getQuantity()).sum();
+                    System.out.printf("Total: %d%n", total);
 
                     System.out.print("Enter your name: ");
                     String name = sc.nextLine();
-                    int custId = customerDAO.insert(new Customer(0, name));
+                    Integer existingId = customerDAO.findIdByName(name);
+                    int custId = (existingId != null) ? existingId : customerDAO.insert(new Customer(0, name));
                     orderDAO.createOrder(custId, total, cart);
                     System.out.println("Order created successfully!");
                 }

@@ -8,8 +8,8 @@ package week5;
  *
  * @author ASUS
  */
-
 public class Course {
+
     protected String courseID;
     protected String courseName;
     protected int credits;
@@ -26,13 +26,29 @@ public class Course {
         this.credits = credits;
     }
 
-    public String getCourseID() { return courseID; }
-    public String getCourseName() { return courseName; }
-    public int getCredits() { return credits; }
+    public String getCourseID() {
+        return courseID;
+    }
 
-    public void setCourseID(String id) { this.courseID = id; }
-    public void setCourseName(String name) { this.courseName = name; }
-    public void setCredits(int credits) { this.credits = credits; }
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCourseID(String id) {
+        this.courseID = id;
+    }
+
+    public void setCourseName(String name) {
+        this.courseName = name;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
 
     @Override
     public String toString() {

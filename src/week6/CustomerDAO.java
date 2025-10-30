@@ -25,5 +25,20 @@ public class CustomerDAO {
         }
         return -1;
     }
-}
 
+    public Integer findIdByName(String name) {
+        String sql = "SELECT id FROM Customer WHERE name = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, name);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

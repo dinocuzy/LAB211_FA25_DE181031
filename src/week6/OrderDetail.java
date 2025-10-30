@@ -13,12 +13,12 @@ public class OrderDetail {
     private int id;
     private int fruitId;
     private int quantity;
-    private double price;
+    private int price;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int id, int fruitId, int quantity, double price) {
+    public OrderDetail(int id, int fruitId, int quantity, int price) {
         this.id = id;
         this.fruitId = fruitId;
         this.quantity = quantity;
@@ -50,17 +50,17 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
     @Override
     public String toString() {
-        return String.format("FruitId: %d | Qty: %d | Price: %.2f | Amount: %.2f",
+        return String.format("FruitId: %d | Qty: %d | Price: %d | Amount: %d",
                 fruitId, quantity, price, quantity * price);
     }
 }
